@@ -2,39 +2,44 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Global custom styles */
-body {
-  font-family: 'Inter', sans-serif;
-  transition: background-color 0.2s, color 0.2s;
+@layer base {
+  body {
+    @apply bg-gray-50 text-gray-900 dark:bg-slate-900 dark:text-slate-100;
+    font-family: 'Inter', system-ui, -apple-system, sans-serif;
+    transition: background-color 0.3s, color 0.3s;
+  }
+  ::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+  }
+  ::-webkit-scrollbar-track {
+    @apply bg-transparent;
+  }
+  ::-webkit-scrollbar-thumb {
+    @apply bg-slate-300 dark:bg-slate-600 rounded-full;
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    @apply bg-slate-400 dark:bg-slate-500;
+  }
 }
 
-/* Scrollbar styling */
-::-webkit-scrollbar {
-  width: 6px;
-  height: 6px;
-}
-::-webkit-scrollbar-thumb {
-  background: #94a3b8;
-  border-radius: 999px;
-}
-::-webkit-scrollbar-thumb:hover {
-  background: #64748b;
-}
-
-/* Smooth page transitions */
-.page-transition {
-  animation: fadeSlide 0.25s ease-out;
-}
-@keyframes fadeSlide {
-  0% { opacity: 0; transform: translateY(8px); }
-  100% { opacity: 1; transform: translateY(0); }
-}
-
-/* Toast animation */
-.toast-enter {
-  animation: slideInRight 0.35s ease-out;
-}
-@keyframes slideInRight {
-  0% { opacity: 0; transform: translateX(40px); }
-  100% { opacity: 1; transform: translateX(0); }
+@layer components {
+  .card {
+    @apply bg-white dark:bg-slate-800 rounded-2xl shadow-lg border border-slate-200/60 dark:border-slate-700/60 
+           hover:shadow-xl transition-shadow duration-200;
+  }
+  .btn-primary {
+    @apply px-6 py-2.5 bg-indigo-600 hover:bg-indigo-700 text-white font-medium rounded-xl 
+           shadow-sm hover:shadow-md transition-all duration-200 focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2;
+  }
+  .btn-outline {
+    @apply px-6 py-2.5 border border-slate-300 dark:border-slate-600 hover:border-indigo-500 
+           text-slate-700 dark:text-slate-200 hover:text-indigo-600 dark:hover:text-indigo-400 
+           rounded-xl transition-all duration-200;
+  }
+  .input-area {
+    @apply w-full rounded-xl border border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-800 
+           px-4 py-3 text-slate-900 dark:text-white placeholder:text-slate-400 dark:placeholder:text-slate-500 
+           focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-shadow;
+  }
 }
