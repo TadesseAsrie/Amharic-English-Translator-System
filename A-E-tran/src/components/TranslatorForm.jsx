@@ -27,23 +27,17 @@ const TranslatorForm = () => {
     setCharCount(sourceText.length);
   }, [sourceText]);
 
-  // Debounce translation
   useEffect(() => {
     const timer = setTimeout(() => {
-      if (sourceText.trim()) {
-        translate(sourceText);
-      } else {
-        // Clear translated text if source empty
-        // (handled inside performTranslation)
-      }
-    }, 600);
+      if (sourceText.trim()) translate(sourceText);
+    }, 500);
     return () => clearTimeout(timer);
   }, [sourceText, sourceLang, targetLang]);
 
   const handleCopy = async () => {
     if (translatedText) {
       await copyToClipboard(translatedText);
-      // Could trigger a toast notification here
+      // Optionally trigger a toast
     }
   };
 
@@ -66,9 +60,9 @@ const TranslatorForm = () => {
   };
 
   return (
-    <div className="space-y-6">
-      {/* Language selection & swap */}
-      <div className="flex flex-wrap items-center gap-4">
+    <div className="space-y-8">
+      {/* Language row */}
+      <div className="flex flex-wrap items-center gap-4 bg-slate-50/50 dark:bg-slate-800/30 p-4 rounded-2xl border border-slate-200/60 dark:border-slate-700/60">
         <LanguageSelector
           value={sourceLang}
           onChange={setSourceLang}
@@ -80,7 +74,7 @@ const TranslatorForm = () => {
         />
         <button
           onClick={swapLanguages}
-          className="p-2 rounded-full bg-gray-200 dark:bg-gray-700 hover:bg-gray-300 dark:hover:bg-gray-600 transition"
+          className="p-3 rounded-full bg-indigo-100 dark:bg-indigo-900/30 text-indigo-600 dark:text-indigo-400 hover:bg-indigo-200 dark:hover:bg-indigo-800/40 transition-colors"
         >
           <i className="fas fa-arrows-alt-h"></i>
         </button>
@@ -95,59 +89,61 @@ const TranslatorForm = () => {
         />
       </div>
 
-      {/* Input area */}
+      {/* Input */}
       <div>
         <div className="relative">
           <textarea
             value={sourceText}
             onChange={(e) => setSourceText(e.target.value)}
-            placeholder="Enter text to translate..."
-            className="w-full min-h-[120px] p-4 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-800 text-gray-900 dark:text-white focus:ring-2 focus:ring-indigo-500 focus:border-transparent resize-y"
+            placeholder="Type or paste your text here..."
+            className="input-area min-h-[140px] resize-y"
           />
-          <div className="absolute bottom-2 right-3 text-xs text-gray-400">
-            {charCount} chars
+          <div className="absolute bottom-3 right-4 text-xs text-slate-400 dark:text-slate-500">
+            {charCount} characters
           </div>
         </div>
         {error && (
-          <div className="mt-2 text-sm text-red-600 dark:text-red-400">
-            <i className="fas fa-exclamation-circle mr-1"></i> {error}
+          <div className="mt-2 text-sm text-red-600 dark:text-red-400 flex items-center gap-1">
+            <i className="fas fa-exclamation-circle"></i> {error}
           </div>
         )}
       </div>
 
-      {/* Translated output */}
+      {/* Output */}
       <div>
         <div className="relative">
-          <div className="w-full min-h-[120px] p-4 border border-gray-300 dark:border-gray-600 rounded-lg bg-gray-50 dark:bg-gray-800/50 text-gray-900 dark:text-white overflow-y-auto">
+          <div className="input-area min-h-[140px] bg-slate-50 dark:bg-slate-800/50 overflow-y-auto flex items-start">
             {isLoading ? (
-              <LoadingSpinner size="sm" />
+              <div className="flex justify-center w-full py-4">
+                <LoadingSpinner size="md" />
+              </div>
             ) : translatedText ? (
               <div className="whitespace-pre-wrap">{translatedText}</div>
             ) : (
-              <span className="text-gray-400 dark:text-gray-500">
+              <span className="text-slate-400 dark:text-slate-500">
                 Translation will appear here
               </span>
             )}
           </div>
           {translatedText && !isLoading && (
-            <div className="absolute bottom-2 right-3 flex space-x-2">
+            <div className="absolute bottom-3 right-3 flex gap-2">
               <button
                 onClick={handleCopy}
-                className="text-gray-500 hover:text-indigo-600 dark:hover:text-indigo-400"
+                className="p-2 rounded-lg bg-white dark:bg-slate-700 shadow-sm hover:shadow-md transition text-slate-500 hover:text-indigo-600 dark:hover:text-indigo-400"
                 title="Copy"
               >
                 <i className="fas fa-copy"></i>
               </button>
               <button
                 onClick={handleDownload}
-                className="text-gray-500 hover:text-indigo-600 dark:hover:text-indigo-400"
+                className="p-2 rounded-lg bg-white dark:bg-slate-700 shadow-sm hover:shadow-md transition text-slate-500 hover:text-indigo-600 dark:hover:text-indigo-400"
                 title="Download TXT"
               >
                 <i className="fas fa-download"></i>
               </button>
               <button
                 onClick={handleShare}
-                className="text-gray-500 hover:text-indigo-600 dark:hover:text-indigo-400"
+                className="p-2 rounded-lg bg-white dark:bg-slate-700 shadow-sm hover:shadow-md transition text-slate-500 hover:text-indigo-600 dark:hover:text-indigo-400"
                 title="Share"
               >
                 <i className="fas fa-share-alt"></i>
@@ -155,12 +151,12 @@ const TranslatorForm = () => {
             </div>
           )}
         </div>
-        <div className="mt-2 flex justify-end">
+        <div className="mt-3 flex justify-end">
           <button
             onClick={clearAll}
-            className="text-sm text-gray-500 dark:text-gray-400 hover:text-red-500 dark:hover:text-red-400"
+            className="text-sm text-slate-500 dark:text-slate-400 hover:text-red-500 dark:hover:text-red-400 transition"
           >
-            <i className="fas fa-times-circle mr-1"></i> Clear
+            <i className="fas fa-times-circle mr-1"></i> Clear all
           </button>
         </div>
       </div>
