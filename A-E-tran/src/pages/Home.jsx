@@ -3,55 +3,57 @@ import { Link } from "react-router-dom";
 
 const Home = () => {
   return (
-    <div className="max-w-4xl mx-auto px-4 py-12">
-      <div className="text-center">
-        <h1 className="text-4xl md:text-5xl font-extrabold text-gray-900 dark:text-white">
-          Amharic ↔ English{" "}
-          <span className="text-indigo-600 dark:text-indigo-400">
-            Translator
+    <div className="max-w-6xl mx-auto px-4 py-12">
+      {/* Hero */}
+      <div className="text-center relative">
+        <div className="absolute inset-0 -z-10 bg-gradient-to-b from-indigo-50/50 to-transparent dark:from-indigo-950/20 rounded-3xl" />
+        <h1 className="text-4xl md:text-6xl font-extrabold tracking-tight">
+          <span className="bg-clip-text text-transparent bg-gradient-to-r from-indigo-600 to-violet-600 dark:from-indigo-400 dark:to-violet-400">
+            Amharic ↔ English
           </span>
+          <span className="text-slate-800 dark:text-white"> Translator</span>
         </h1>
-        <p className="mt-4 text-lg text-gray-600 dark:text-gray-300">
+        <p className="mt-4 text-lg text-slate-600 dark:text-slate-300 max-w-2xl mx-auto">
           Translate text, save favorites, learn phrases, and more – all in one
           place.
         </p>
         <div className="mt-8 flex flex-wrap justify-center gap-4">
           <Link
             to="/translator"
-            className="px-6 py-3 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 transition font-medium"
+            className="px-8 py-3.5 bg-gradient-to-r from-indigo-600 to-violet-600 text-white rounded-2xl font-medium shadow-lg hover:shadow-xl hover:scale-[1.02] transition-all duration-200"
           >
             <i className="fas fa-language mr-2"></i> Start Translating
           </Link>
           <Link
             to="/phrasebook"
-            className="px-6 py-3 bg-gray-200 dark:bg-gray-700 text-gray-800 dark:text-white rounded-lg hover:bg-gray-300 dark:hover:bg-gray-600 transition font-medium"
+            className="px-8 py-3.5 bg-white dark:bg-slate-800 text-slate-800 dark:text-white rounded-2xl font-medium shadow-md hover:shadow-lg hover:scale-[1.02] transition-all duration-200 border border-slate-200 dark:border-slate-700"
           >
             <i className="fas fa-book mr-2"></i> Browse Phrase Book
           </Link>
         </div>
       </div>
 
-      {/* Features grid */}
-      <div className="mt-16 grid grid-cols-1 md:grid-cols-2 gap-6">
+      {/* Feature Grid */}
+      <div className="mt-20 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
         <FeatureCard
           icon="exchange-alt"
           title="Real-time Translation"
-          desc="Instant translation between Amharic and English with auto-detect."
+          desc="Instant translation between Amharic and English."
         />
         <FeatureCard
           icon="microphone"
           title="Voice Input & Output"
-          desc="Speak your text and listen to translations with text-to-speech."
+          desc="Speak your text and listen to translations."
         />
         <FeatureCard
           icon="history"
           title="History & Favorites"
-          desc="All your translations are saved locally. Star your favorites."
+          desc="All your translations saved locally. Star your favorites."
         />
         <FeatureCard
           icon="book"
           title="Dictionary & Phrase Book"
-          desc="Look up words and learn useful phrases by category."
+          desc="Look up words and learn phrases by category."
         />
       </div>
     </div>
@@ -59,14 +61,14 @@ const Home = () => {
 };
 
 const FeatureCard = ({ icon, title, desc }) => (
-  <div className="bg-white dark:bg-gray-800 p-6 rounded-xl shadow-md border border-gray-200 dark:border-gray-700">
-    <div className="text-3xl text-indigo-600 dark:text-indigo-400 mb-3">
+  <div className="card p-6 text-center group hover:-translate-y-1 transition-transform duration-200">
+    <div className="w-14 h-14 rounded-2xl bg-indigo-100 dark:bg-indigo-900/30 text-indigo-600 dark:text-indigo-400 flex items-center justify-center text-2xl mx-auto mb-4 group-hover:scale-110 transition-transform">
       <i className={`fas fa-${icon}`}></i>
     </div>
-    <h3 className="text-lg font-semibold text-gray-900 dark:text-white">
+    <h3 className="text-lg font-semibold text-slate-900 dark:text-white">
       {title}
     </h3>
-    <p className="text-gray-600 dark:text-gray-400 mt-1">{desc}</p>
+    <p className="text-slate-500 dark:text-slate-400 mt-1 text-sm">{desc}</p>
   </div>
 );
 
