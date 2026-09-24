@@ -188,3 +188,4 @@ A modern and responsive language translation application that allows users to tr
 ## Project Goal
 
 To provide a simple, fast, and user-friendly platform for translating between Amharic and English while offering additional learning tools such as a dictionary, phrase book, voice interaction, translation history, and favorites management.
+##if like the project give star
